@@ -86,9 +86,10 @@ const loadVideos = (loadingVideo) => {
       <img class="w-full h-full object-cover"
         src=${forEachVideo.thumbnail} />
         
-        <div class="absolute right-2 bottom-2 bg-black text-white p-1 rounded">
-          ${forEachVideo.others.posted_date}
-        </div>
+        ${forEachVideo.others.posted_date?.length == 0 ? "" :          
+          `<div class="absolute right-2 bottom-2 bg-black text-white p-1 rounded text-xs"> ${getTimeFun(forEachVideo.others.posted_date)}</div>`
+        }
+
     </figure>
 
     <div class="py-3 flex items-center gap-3">
@@ -121,5 +122,23 @@ const loadVideos = (loadingVideo) => {
 }
 
 loadVideosAPI()
+
+// Time Formatting Function Start
+
+function getTimeFun (time){
+
+  const hourTime = parseInt(time / 3600)
+
+  const reminderSecond = time % 3600
+
+  const minuteTime = parseInt(reminderSecond / 60)
+
+  const secondTime = reminderSecond % 60
+
+  return `${hourTime} Hours ${minuteTime} Minute ${secondTime} Second`
+
+}
+
+// Time Formatting Function End
 
 // ********************** Videos API Work End **********************
