@@ -1,39 +1,39 @@
-// Catagories API Work Start
+// ********************** Categories API Work Start *********************
 
-const loadCatagories = () => {
+const loadCategories = () => {
   fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
     .then(res => res.json())
-    .then(data => displayCatagories(data.categories))
+    .then(data => displayCategories(data.categories))
     .catch(error => console.error(error))
 }
 
-// Catagories Work Start
-const displayCatagories = (fetchData) => {
+// Categories Work Start
+const displayCategories = (fetchData) => {
 
-  fetchData.forEach(catagoriesItem => {
-    console.log(catagoriesItem.category)
+  fetchData.forEach(categoriesItem => {
+    console.log(categoriesItem.category)
 
-
-    const catagoriesParent = document.getElementById("catagoriesContainer");
+    const categoriesParent = document.getElementById("categoriesContainer");
 
     const button = document.createElement("button");
     button.classList = "btn";
-    button.innerText = catagoriesItem.category;
-    catagoriesParent.append(button);
+    button.innerText = categoriesItem.category;
+    categoriesParent.append(button);
 
   });
 
 }
 
-// Catagories Work End
+// Categories Work End
 
-loadCatagories()
-
-
-// Catagories API Work End
+loadCategories()
 
 
-// Videos API Work Start
+// ********************** Categories API Work End **********************
+
+
+
+// ********************** Videos API Work Start **********************
 
 // const videos =
 // {
@@ -56,51 +56,63 @@ loadCatagories()
 // }
 
 
+// Call Video API
 const loadVideosAPI = () => {
   fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
     .then(res => res.json())
-    .then(data => loadVideos(data.videos))
+    .then(data => loadVideos(data.videos)) // Call loadVideos Function Arguments
     .catch(error => console.error(error))
 }
+// End Video API
 
+
+// Call Arrow Function
 const loadVideos = (loadingVideo) => {
 
+  // call now forEach function
   loadingVideo.forEach((forEachVideo) => {
     console.log(forEachVideo)
 
+    // Html File videos section ID Call
     const parentVideoId = document.getElementById("videos");
 
     const card = document.createElement("div");
     card.classList = "card card-compact";
+
+    // daisyui Card Design And API Call
     card.innerHTML =
       `
     <figure class="h-[200px] relative">
-    <img class="w-full h-full object-cover"
-      src=${forEachVideo.thumbnail} />
-      
-      <div class="absolute right-2 bottom-2 bg-black text-white p-1 rounded">
-        ${forEachVideo.others.posted_date}
+      <img class="w-full h-full object-cover"
+        src=${forEachVideo.thumbnail} />
+        
+        <div class="absolute right-2 bottom-2 bg-black text-white p-1 rounded">
+          ${forEachVideo.others.posted_date}
+        </div>
+    </figure>
+
+    <div class="py-3 flex items-center gap-3">
+      <div>
+        <img class="h-[50px] w-[50px] rounded-full object-cover" src=${forEachVideo.authors[0].profile_picture} />
       </div>
-  </figure>
-  <div class="py-3 flex items-center gap-3">
-    <div>
-    <img class="h-[50px] w-[50px] rounded-full object-cover" src=${forEachVideo.authors[0].profile_picture} />
-    </div>
 
-    <div>
-    <h2 class="font-bold">${forEachVideo.title}</h2>
-    
-    <div class="flex gap-x-2 items-center">
-    <p>${forEachVideo.authors[0].profile_name}</p>
-    <div class="w-[20px]">
-    ${forEachVideo.authors[0].verified === true ? `<img class="w-full" src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png" />` : ''}
-    
-    </div>
-    </div>
+      <div>
+        <h2 class="font-bold">${forEachVideo.title}</h2>
+        
+        <div class="flex gap-x-2 items-center">
 
-    <p></p>
+          <p>${forEachVideo.authors[0].profile_name}</p>
+
+          <div class="w-[20px]">
+          ${forEachVideo.authors[0].verified === true ? `<img class="w-full" src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png" />` : ''}
+          </div>
+
+        </div>
+
+        <p></p>
+
+      </div>
     </div>
-  </div>
     `
     parentVideoId.append(card);
 
@@ -110,6 +122,4 @@ const loadVideos = (loadingVideo) => {
 
 loadVideosAPI()
 
-
-
-// Videos API Work End
+// ********************** Videos API Work End **********************
