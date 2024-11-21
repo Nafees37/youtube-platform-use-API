@@ -1,59 +1,61 @@
-// ********************** Categories API Work Start *********************
+// ****** Categories Button & Categories Id API Work Start *********
 
+// Categories Button API Work Start
 const loadCategories = () => {
   fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
     .then(res => res.json())
     .then(data => displayCategories(data.categories))
     .catch(error => console.error(error))
 }
+// Categories Button API Work End
 
-// Categories Work Start
+
+// Categories Id API Work Start
+
+const categoryID = (id) => {
+  console.log(id)
+
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
+    .then(res => res.json())
+    .then(data => loadVideos(data.category))
+    .catch(error => console.log(error))
+}
+
+// Categories Id API Work End
+
+// Categories Button Work Start
 const displayCategories = (fetchData) => {
 
   fetchData.forEach(categoriesItem => {
     console.log(categoriesItem.category)
 
     const categoriesParent = document.getElementById("categoriesContainer");
+    // Categories Id Work Start
 
-    const button = document.createElement("button");
-    button.classList = "btn";
-    button.innerText = categoriesItem.category;
-    categoriesParent.append(button);
+    const buttonDiv = document.createElement("div");
+    buttonDiv.innerHTML =
+      `
+    <button onclick="categoryID(${categoriesItem.category_id})" class="btn">${categoriesItem.category}</button>
+    `
+    categoriesParent.append(buttonDiv);
+
+
+    // Categories Id Work End
 
   });
 
 }
 
-// Categories Work End
+// Categories Button Work End
 
 loadCategories()
 
 
-// ********************** Categories API Work End **********************
+// ****** Categories Button & Categories Id API Work End *********
 
 
 
 // ********************** Videos API Work Start **********************
-
-// const videos =
-// {
-//   "category_id": "1001",
-//   "video_id": "aaaa",
-//   "thumbnail": "https://i.ibb.co/L1b6xSq/shape.jpg",
-//   "title": "Shape of You",
-//   "authors": [
-//     {
-//       "profile_picture": "https://i.ibb.co/D9wWRM6/olivia.jpg",
-//       "profile_name": "Olivia Mitchell",
-//       "verified": ""
-//     }
-//   ],
-//   "others": {
-//     "views": "100K",
-//     "posted_date": "16278"
-//   },
-//   "description": "Dive into the rhythm of 'Shape of You,' a captivating track that blends pop sensibilities with vibrant beats. Created by Olivia Mitchell, this song has already gained 100K views since its release. With its infectious melody and heartfelt lyrics, 'Shape of You' is perfect for fans looking for an uplifting musical experience. Let the music take over as Olivia's vocal prowess and unique style create a memorable listening journey."
-// }
 
 
 // Call Video API
@@ -69,12 +71,14 @@ const loadVideosAPI = () => {
 // Call Arrow Function
 const loadVideos = (loadingVideo) => {
 
+  const parentVideoId = document.getElementById("videos");
+  parentVideoId.innerHTML = "" // parentVideoId তে যে ‍গুলো add হয়েছে সে গুলো Clear হয়ে গিয়েছে অর্থাৎ আগের গুলো clear হবে এবং পরের গুলো আবার নতুন করে add হবে
+
   // call now forEach function
   loadingVideo.forEach((forEachVideo) => {
     console.log(forEachVideo)
 
     // Html File videos section ID Call
-    const parentVideoId = document.getElementById("videos");
 
     const card = document.createElement("div");
     card.classList = "card card-compact";
@@ -86,9 +90,9 @@ const loadVideos = (loadingVideo) => {
       <img class="w-full h-full object-cover"
         src=${forEachVideo.thumbnail} />
         
-        ${forEachVideo.others.posted_date?.length == 0 ? "" :          
-          `<div class="absolute right-2 bottom-2 bg-black text-white p-1 rounded text-xs"> ${getTimeFun(forEachVideo.others.posted_date)}</div>`
-        }
+        ${forEachVideo.others.posted_date?.length == 0 ? "" :
+        `<div class="absolute right-2 bottom-2 bg-black text-white p-1 rounded text-xs"> ${getTimeFun(forEachVideo.others.posted_date)}</div>`
+      }
 
     </figure>
 
@@ -125,7 +129,7 @@ loadVideosAPI()
 
 // Time Formatting Function Start
 
-function getTimeFun (time){
+function getTimeFun(time) {
 
   const hourTime = parseInt(time / 3600)
 
