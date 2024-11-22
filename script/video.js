@@ -12,12 +12,30 @@ const loadCategories = () => {
 
 // Categories Id API Work Start
 
+function removeColorFun() {
+  const removeBtnColor = document.getElementsByClassName("removeColorClass")
+  // console.log(removeBtnColor)
+
+  for (removeClass of removeBtnColor) {
+    // console.log(removeClass)
+    removeClass.classList.remove("active")
+  }
+}
+
 const categoryID = (id) => {
   // console.log(id)
 
   fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
     .then(res => res.json())
-    .then(data => loadVideos(data.category))
+    .then(data => {
+
+      removeColorFun();
+      const activeButton = document.getElementById(`btn-${id}`)
+      activeButton.classList.add("active", "hover:bg-[red]")
+
+
+      loadVideos(data.category)
+    })
     .catch(error => console.log(error))
 }
 
@@ -35,7 +53,7 @@ const displayCategories = (fetchData) => {
     const buttonDiv = document.createElement("div");
     buttonDiv.innerHTML =
       `
-    <button onclick="categoryID(${categoriesItem.category_id})" class="btn">${categoriesItem.category}</button>
+    <button id="btn-${categoriesItem.category_id}" onclick="categoryID(${categoriesItem.category_id})" class="btn removeColorClass">${categoriesItem.category}</button>
     `
     categoriesParent.append(buttonDiv);
 
