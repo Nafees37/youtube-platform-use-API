@@ -13,7 +13,7 @@ const loadCategories = () => {
 // Categories Id API Work Start
 
 const categoryID = (id) => {
-  console.log(id)
+  // console.log(id)
 
   fetch(`https://openapi.programming-hero.com/api/phero-tube/category/${id}`)
     .then(res => res.json())
@@ -27,7 +27,7 @@ const categoryID = (id) => {
 const displayCategories = (fetchData) => {
 
   fetchData.forEach(categoriesItem => {
-    console.log(categoriesItem.category)
+    // console.log(categoriesItem.category)
 
     const categoriesParent = document.getElementById("categoriesContainer");
     // Categories Id Work Start
@@ -71,14 +71,27 @@ const loadVideosAPI = () => {
 // Call Arrow Function
 const loadVideos = (loadingVideo) => {
 
+  // Html File videos section ID Call
   const parentVideoId = document.getElementById("videos");
   parentVideoId.innerHTML = "" // parentVideoId তে যে ‍গুলো add হয়েছে সে গুলো Clear হয়ে গিয়েছে অর্থাৎ আগের গুলো clear হবে এবং পরের গুলো আবার নতুন করে add হবে
 
+  // category length যদি 0 হয় তাহলে এটা কাজ করবে
+  if (loadingVideo.length == 0) {
+    parentVideoId.classList.remove("grid")
+    parentVideoId.innerHTML = `
+      <div class="flex justify-center items-center">
+        <img src="assets/Icon.png" />
+      </div>
+      <h2 class="font-bold text-center text-2xl pt-5">Oops! Sorry There Is No <br> Content Here</h2>
+    `;
+    return;
+  } else {
+    parentVideoId.classList.add("grid")
+  }
+
   // call now forEach function
   loadingVideo.forEach((forEachVideo) => {
-    console.log(forEachVideo)
-
-    // Html File videos section ID Call
+    // console.log(forEachVideo)
 
     const card = document.createElement("div");
     card.classList = "card card-compact";
