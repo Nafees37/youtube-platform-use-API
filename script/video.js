@@ -31,7 +31,7 @@ const categoryID = (id) => {
 
       removeColorFun();
       const activeButton = document.getElementById(`btn-${id}`)
-      activeButton.classList.add("active", "hover:bg-[red]")
+      activeButton.classList.add("active", "hover:bg-[#FF1F3D]")
 
 
       loadVideos(data.category)
@@ -85,6 +85,35 @@ const loadVideosAPI = () => {
 }
 // End Video API
 
+// Call Video video_id Api Start
+const modalFun = async (videoID) => {
+  // console.log(videoID)
+
+  const apiUrl = `https://openapi.programming-hero.com/api/phero-tube/video/${videoID}`;
+  const fetchUrl = await fetch(apiUrl);
+  const data = await fetchUrl.json();
+  displayModal(data.video);
+
+}
+// Call Video video_id Api End
+
+// Video thumbnail & description function start
+
+const displayModal = (videoData) => {
+  // console.log(videoData)
+
+  // document.getElementById("btnModal").click();
+  document.getElementById("my_modal_5").showModal();
+
+  const videoModal = document.getElementById("modal-content");
+  videoModal.innerHTML = `
+  <img class="w-full" src=${videoData.thumbnail} />
+  <p>${videoData.description}</p>
+
+  `
+}
+
+// Video thumbnail & description function end
 
 // Call Arrow Function
 const loadVideos = (loadingVideo) => {
@@ -145,7 +174,7 @@ const loadVideos = (loadingVideo) => {
 
         </div>
 
-        <p></p>
+        <p class="mt-3"><button onclick="modalFun('${forEachVideo.video_id}')" class="btn btn-sm">Details</button></p>
 
       </div>
     </div>

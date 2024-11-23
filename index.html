@@ -43,13 +43,37 @@
   </main>
   <!-- Categories Section Start -->
 
-   <!-- Video Section Start -->
-    <main>
-      <section id="videos" class="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-10">
+  <!-- Video Section Start -->
+  <main>
+    <section id="videos" class="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 py-10">
 
-      </section>
-    </main>
-    <!-- Video Section Start -->
+    </section>
+  </main>
+  <!-- Video Section Start -->
+
+  <!-- Daisyui Modal Start -->
+  <main>
+    <section>
+
+      <!-- Open the modal using ID.showModal() method -->
+      <button id="btnModal" class="btn" onclick="my_modal_5.showModal()">open modal</button>
+      <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+        <div class="modal-box">
+          <div id="modal-content">
+            
+          </div>
+          <div class="modal-action">
+            <form method="dialog">
+              <!-- if there is a button in form, it will close the modal -->
+              <button class="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
+    </section>
+  </main>
+  <!-- Daisyui Modal End -->
 
   <script src="script/video.js"></script>
 </body>
