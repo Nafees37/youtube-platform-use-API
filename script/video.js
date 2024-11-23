@@ -77,8 +77,8 @@ loadCategories()
 
 
 // Call Video API
-const loadVideosAPI = () => {
-  fetch('https://openapi.programming-hero.com/api/phero-tube/videos')
+const loadVideosAPI = (searchInputValue = "") => {
+  fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchInputValue}`)
     .then(res => res.json())
     .then(data => loadVideos(data.videos)) // Call loadVideos Function Arguments
     .catch(error => console.error(error))
@@ -185,6 +185,9 @@ const loadVideos = (loadingVideo) => {
 
 }
 
+document.getElementById("searchInput").addEventListener("keyup", (event) => {
+  loadVideosAPI(event.target.value)
+});
 loadVideosAPI()
 
 // Time Formatting Function Start
